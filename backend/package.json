@@ -9,12 +9,15 @@
 		"build": "tsup src",
 		"run:migration": "sequelize-cli db:migrate",
 		"run:revert": "sequelize-cli db:migrate:undo",
-		"run:seed": "sequelize-cli db:seed:all"
+		"run:seed": "sequelize-cli db:seed:all",
+		"test": "vitest",
+		"test:integration": "vitest --config vite.config.integration.ts"
 	},
 	"author": "",
 	"license": "ISC",
 	"devDependencies": {
 		"@biomejs/biome": "1.8.3",
+		"@testcontainers/postgresql": "^10.11.0",
 		"@types/cors": "^2.8.17",
 		"@types/express": "^4.17.21",
 		"@types/node": "^22.1.0",
