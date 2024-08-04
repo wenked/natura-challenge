@@ -2,8 +2,8 @@ const { resolve } = require('node:path');
 
 
 module.exports = {
-	config: resolve(__dirname, 'dist', 'config', 'database.cjs'),
-	'models-path': resolve(__dirname, 'dist',  'infrastructure', 'database','models'),
+	config: resolve(__dirname, 'build', 'config', 'database.js'),
+	'models-path': resolve(__dirname, 'build',  'infrastructure', 'database','models'),
 	'migrations-path': resolve(__dirname, 'src','infrastructure', 'database', 'migrations'),
 	'seeders-path': resolve(__dirname, 'src', 'infrastructure', 'database', 'seeders'),
 }; 

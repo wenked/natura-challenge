@@ -2,7 +2,7 @@ import type { Options } from "sequelize";
 import env from "./ENV";
 
 const config: Options = {
-	database: env.DB_HOST,
+	database: env.DB_NAME,
 	dialect: "postgres",
 	username: env.DB_USERNAME,
 	password: env.DB_PASSWORD,
@@ -15,4 +15,6 @@ const config: Options = {
 	},
 };
 
-export default config;
+//@ts-ignore
+export = config;
+//export default config;
