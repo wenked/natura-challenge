@@ -1,8 +1,8 @@
-import { Sequelize } from "sequelize-typescript";
-import env from "../../config/ENV";
+import type { Options } from "sequelize";
+import env from "./ENV";
 
-export const sequelize = new Sequelize({
-	database: env.DB_NAME,
+const config: Options = {
+	database: env.DB_HOST,
 	dialect: "postgres",
 	username: env.DB_USERNAME,
 	password: env.DB_PASSWORD,
@@ -13,4 +13,6 @@ export const sequelize = new Sequelize({
 		min: 0,
 		acquire: 30000,
 	},
-});
+};
+
+export default config;

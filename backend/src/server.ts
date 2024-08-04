@@ -1,9 +1,27 @@
 import dotenv from "dotenv";
+import env from "./config/ENV";
+import { sequelize } from "./infrastructure/database/sequelize.config";
 import app from "./main/config/app";
+import { logger } from "./utils";
 
 dotenv.config();
 
-const port = process.env.PORT || 5001;
-app.listen(port, () => {
-	console.log(`Server running at http://localhost:${port}`);
-});
+const PORT = env.PORT || 5001;
+
+async function startServer() {
+	try {
+		await sequelize.authenticate();
+		logger.info("Database connection has been established successfully.");
+		await sequelize.sync();
+		logger.info("All models were synchronized successfully.");
+
+		app.listen(PORT, () => {
+			logger.info(`Server is running on port ${PORT}`);
+		});
+	} catch (error) {
+		console.error(error);
+		logger.error("Unable to connect to the database:", error);
+	}
+}
+
+startServer();
