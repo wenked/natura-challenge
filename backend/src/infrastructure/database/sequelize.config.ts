@@ -1,5 +1,8 @@
 import { Sequelize } from "sequelize-typescript";
 import env from "../../config/ENV";
+import { Category } from "./models/category.model";
+import { ProductImage } from "./models/product-images.model";
+import { Product } from "./models/product.model";
 
 export const sequelize = new Sequelize({
 	database: env.DB_NAME,
@@ -13,5 +16,6 @@ export const sequelize = new Sequelize({
 		min: 0,
 		acquire: 30000,
 	},
-	models: [`${__dirname}/../domain/entities`],
+	models: [Category, Product, ProductImage],
+	logging: false,
 });

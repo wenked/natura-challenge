@@ -7,6 +7,7 @@ export function ListProductsControllerFactory(): ListProductsController {
 	const useCase = new ListProductsUseCase(productRepository);
 
 	const listProductsController = new ListProductsController(useCase);
-	console.log({ useCase });
+
+	console.log({ useCase, handle: listProductsController.handle });
 	return listProductsController;
 }
