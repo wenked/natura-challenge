@@ -1,9 +1,9 @@
+import type { ICategoryRepository } from "../../../application/interfaces/category-repository.interface";
 import type {
+	Category as CategoryEntity,
 	CategoryFields,
-	ICategoryRepository,
-} from "../../application/interfaces/category-repository.interface";
-import type { Category as CategoryEntity } from "../../domain/entities/category.entitiy";
-import { Category as CategoryModel } from "../database/models/category.model";
+} from "../../../domain/entities/category.entitiy";
+import { Category as CategoryModel } from "../../database/models/category.model";
 
 export class CategoryRepository implements ICategoryRepository {
 	async create(
@@ -41,9 +41,9 @@ export class CategoryRepository implements ICategoryRepository {
 			return null;
 		}
 
-		await findCategory.update(category);
+		const updatedCategory = await findCategory.update(category);
 
-		return this.toEntity(findCategory);
+		return this.toEntity(updatedCategory);
 	}
 
 	async delete(id: string): Promise<boolean> {

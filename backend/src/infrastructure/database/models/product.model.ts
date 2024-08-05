@@ -1,4 +1,14 @@
-import { Column, DataType, Model, Table } from "sequelize-typescript";
+import {
+	BelongsTo,
+	Column,
+	DataType,
+	ForeignKey,
+	HasMany,
+	Model,
+	Table,
+} from "sequelize-typescript";
+import { Category } from "./category.model";
+import { ProductImage } from "./product-images.model";
 
 @Table({
 	tableName: "products",
@@ -13,9 +23,22 @@ export class Product extends Model {
 	})
 	id!: string;
 
+	@ForeignKey(() => Category)
+	@Column({
+		type: DataType.UUID,
+		allowNull: false,
+		field: "category_id",
+		onDelete: "CASCADE",
+	})
+	categoryId!: string;
+
+	@BelongsTo(() => Category)
+	category!: Category;
+
 	@Column({
 		type: DataType.STRING,
 		allowNull: false,
+		field: "name",
 	})
 	name!: string;
 
@@ -26,10 +49,13 @@ export class Product extends Model {
 	description!: string;
 
 	@Column({
-		type: DataType.DECIMAL,
+		type: DataType.INTEGER,
 		allowNull: false,
 	})
 	price!: number;
+
+	@HasMany(() => ProductImage)
+	images!: ProductImage[];
 
 	@Column({
 		type: DataType.DATE,

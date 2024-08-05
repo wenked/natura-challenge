@@ -5,3 +5,5 @@ export interface Category {
 	createdAt: Date;
 	updatedAt: Date;
 }
+
+export type CategoryFields = keyof Category;

@@ -26,6 +26,7 @@ export class ProductImage extends Model {
 		type: DataType.UUID,
 		allowNull: false,
 		field: "product_id",
+		onDelete: "CASCADE",
 	})
 	productId!: string;
 

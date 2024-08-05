@@ -8,7 +8,7 @@ import { Product } from "./models/product.model";
 export async function setupTestDatabase() {
 	try {
 		const container = await new PostgreSqlContainer().start();
-		console.log({ container });
+
 		const sequelize = new Sequelize({
 			dialect: "postgres",
 			host: container.getHost(),
@@ -22,6 +22,8 @@ export async function setupTestDatabase() {
 		sequelize.addModels([Category, Product, ProductImage]);
 
 		await sequelize.sync({ force: true });
+
+		await sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
 
 		return sequelize;
 	} catch (error) {

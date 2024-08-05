@@ -1,7 +1,7 @@
 import type { Sequelize } from "sequelize-typescript";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
-import { Category } from "../database/models/category.model";
-import { setupTestDatabase } from "../database/sequelize-test.config";
+import { Category } from "../../database/models/category.model";
+import { setupTestDatabase } from "../../database/sequelize-test.config";
 import { CategoryRepository } from "./category.repository";
 
 describe("CategoryRepository Integration Tests", () => {
@@ -18,7 +18,7 @@ describe("CategoryRepository Integration Tests", () => {
 	});
 
 	beforeEach(async () => {
-		await Category.destroy({ where: {}, truncate: true });
+		await Category.destroy({ where: {} });
 	});
 
 	describe("create", () => {
@@ -77,6 +77,58 @@ describe("CategoryRepository Integration Tests", () => {
 			expect(categories).toHaveLength(2);
 			expect(categories[0].name).toBe("Category 1");
 			expect(categories[1].name).toBe("Category 2");
+		});
+	});
+
+	describe("update", () => {
+		it("should update a category", async () => {
+			const createdCategory = await repository.create({
+				name: "Test Category",
+				description: "Test Description",
+			});
+
+			const updatedCategory = await repository.update(createdCategory.id, {
+				name: "Updated Category",
+				description: "Updated Description",
+			});
+
+			expect(updatedCategory).not.toBeNull();
+			expect(updatedCategory?.id).toBe(createdCategory.id);
+			expect(updatedCategory?.name).toBe("Updated Category");
+			expect(updatedCategory?.description).toBe("Updated Description");
+		});
+
+		it("should return null if category is not found", async () => {
+			const updatedCategory = await repository.update(
+				"058d31b0-51c2-47e5-b295-e45f52700da2",
+				{
+					name: "Updated Category",
+					description: "Updated Description",
+				},
+			);
+
+			expect(updatedCategory).toBeNull();
+		});
+	});
+
+	describe("delete", () => {
+		it("should delete a category", async () => {
+			const createdCategory = await repository.create({
+				name: "Test Category",
+				description: "Test Description",
+			});
+
+			const isDeleted = await repository.delete(createdCategory.id);
+
+			expect(isDeleted).toBe(true);
+		});
+
+		it("should return false if category is not found", async () => {
+			const isDeleted = await repository.delete(
+				"058d31b0-51c2-47e5-b295-e45f52700da2",
+			);
+
+			expect(isDeleted).toBe(false);
 		});
 	});
 });
