@@ -156,7 +156,7 @@ describe("ProductRepository Integration Tests", () => {
 				categoryId: category.id,
 			});
 
-			const product2 = await repository.create({
+			await repository.create({
 				name: "Product 2",
 				description: "Description 2",
 				price: 200,

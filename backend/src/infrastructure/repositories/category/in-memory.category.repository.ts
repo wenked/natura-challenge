@@ -1,7 +1,6 @@
 import { randomUUID } from "node:crypto";
 import type { ICategoryRepository } from "../../../application/interfaces/category-repository.interface";
 import type {
-	Category,
 	Category as CategoryEntity,
 	CategoryFields,
 } from "../../../domain/entities/category.entitiy";
@@ -27,7 +26,7 @@ export class InMemoryCategoryRepository implements ICategoryRepository {
 	async findById(
 		id: string,
 		attributes: CategoryFields[],
-	): Promise<Partial<Category> | null> {
+	): Promise<Partial<CategoryEntity> | null> {
 		const category = this.categories.get(id);
 
 		if (!category) {
@@ -37,7 +36,9 @@ export class InMemoryCategoryRepository implements ICategoryRepository {
 		return this.filterAttributes(category, attributes);
 	}
 
-	async findAll(attributes: CategoryFields[]): Promise<Partial<Category>[]> {
+	async findAll(
+		attributes: CategoryFields[],
+	): Promise<Partial<CategoryEntity>[]> {
 		const categories = Array.from(this.categories.values());
 
 		return categories.map((category) =>
