@@ -181,6 +181,45 @@ describe("ProductRepository Integration Tests", () => {
 			expect(products.pages).toBe(1);
 			expect(products).toEqual(response);
 		});
+
+		it("should return all products with provided name", async () => {
+			const category = await categoryRepository.create({
+				name: "Test Category",
+				description: "Test Description",
+			});
+
+			const product1 = await repository.create({
+				name: "Product 1",
+				description: "Description 1",
+				price: 100,
+				categoryId: category.id,
+			});
+
+			await repository.create({
+				name: "Product 2",
+				description: "Description 2",
+				price: 200,
+				categoryId: category.id,
+			});
+
+			const products = await repository.findAll({
+				attributes: ["id", "name"],
+				limit: 12,
+				page: 1,
+				name: "Product 1",
+			});
+
+			const response: IProductFindAllResponse = {
+				data: [{ id: product1.id, name: "Product 1", images: [] }],
+				total: 1,
+				pages: 1,
+			};
+
+			expect(products.data).toHaveLength(1);
+			expect(products.total).toBe(1);
+			expect(products.pages).toBe(1);
+			expect(products).toEqual(response);
+		});
 	});
 
 	describe("update", () => {

@@ -16,6 +16,8 @@ export interface IProductRepository {
 	findAll({
 		page,
 		limit,
+		name,
+		categoryId,
 		attributes,
 	}: IProductFindAll): Promise<IProductFindAllResponse>;
 	update(id: string, product: Partial<Product>): Promise<Product | null>;

@@ -9,17 +9,20 @@ export class ListProductsUseCase {
 		limit,
 		categoryId,
 		attributes,
+		name,
 	}: {
 		page: number;
 		limit: number;
 		attributes: ProductFields[];
 		categoryId?: string;
+		name?: string;
 	}) {
 		return this.productRepository.findAll({
 			page,
 			limit,
 			categoryId,
 			attributes,
+			name,
 		});
 	}
 }

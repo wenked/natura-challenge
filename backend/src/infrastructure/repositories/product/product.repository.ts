@@ -1,3 +1,4 @@
+import { Op, type WhereOptions } from "sequelize";
 import type { IProductRepository } from "../../../application/interfaces/product-repository.interface";
 import type { Product as ProductEntity } from "../../../domain/entities/product.entity";
 import type {
@@ -31,9 +32,20 @@ export class ProductRepository implements IProductRepository {
 		page,
 		limit,
 		categoryId,
+		name,
 		attributes,
 	}: IProductFindAll): Promise<IProductFindAllResponse> {
-		const where = categoryId ? { categoryId } : {};
+		const where: WhereOptions<ProductModel> = {};
+
+		if (categoryId) {
+			where.categoryId = categoryId;
+		}
+
+		if (name) {
+			where.name = {
+				[Op.like]: `%${name}%`,
+			};
+		}
 
 		const products = await ProductModel.findAndCountAll({
 			where,
