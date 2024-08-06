@@ -43,7 +43,7 @@ export async function createFakeProductsData() {
 
 			const newProduct = await Product.create({
 				name: productName,
-				price: Math.floor(Math.random() * 1000),
+				price: Math.floor(Math.random() * 10000),
 				description: "Lorem ipsum dolor sit amet",
 				categoryId: category.id,
 			});

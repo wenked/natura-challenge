@@ -1,7 +1,6 @@
-import type { Options } from "sequelize";
 import env from "./ENV";
 
-const config: Options = {
+const config = {
 	database: env.DB_NAME,
 	dialect: "postgres",
 	username: env.DB_USERNAME,
@@ -13,6 +12,7 @@ const config: Options = {
 		min: 0,
 		acquire: 30000,
 	},
+	seederStorage: "sequelize",
 };
 
 //@ts-ignore
