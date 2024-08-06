@@ -11,6 +11,6 @@ export function adaptRoute(controller: Controller) {
 		};
 
 		const httpResponse = await controller.handle(httpRequest);
-		res.status(httpResponse.statusCode).json(httpResponse.body);
+		res.status(httpResponse.statusCode).json(httpResponse.data);
 	};
 }

@@ -1,9 +1,11 @@
 import { type Express, Router } from "express";
-import { productsRouterFactory } from "./products";
+import { createCategoriesRoutes } from "./categories";
+import { createProductsRoutes } from "./products";
 
 export function setupRoutes(app: Express): void {
 	const router = Router();
 	app.use("/api", router);
 
-	productsRouterFactory(router);
+	createProductsRoutes(router);
+	createCategoriesRoutes(router);
 }

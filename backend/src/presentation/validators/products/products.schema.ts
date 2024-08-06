@@ -7,7 +7,17 @@ export const listProductsSchema = z.object({
 		name: z.string().optional(),
 		categoryId: z.string().optional(),
 		attributes: z
-			.array(z.string())
-			.default(["id", "name", "price", "description"]),
+			.array(
+				z.enum([
+					"id",
+					"name",
+					"price",
+					"description",
+					"images",
+					"createdAt",
+					"updatedAt",
+				]),
+			)
+			.default(["id", "name", "price", "description", "images"]),
 	}),
 });

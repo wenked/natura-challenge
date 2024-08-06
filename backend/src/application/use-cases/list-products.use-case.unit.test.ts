@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import type { Product } from "../../domain/entities/product.entity";
 import { InMemoryCategoryRepository } from "../../infrastructure/repositories/category/in-memory.category.repository";
 import { InMemoryProductRepository } from "../../infrastructure/repositories/product/in-memory.product.repository";
+import { formatPrice } from "../../utils/formatPrice";
 import { ListProductsUseCase } from "./list-products.use-case";
 
 describe("ListProductsUseCase", () => {
@@ -28,16 +28,16 @@ describe("ListProductsUseCase", () => {
 			categoryId: category.id,
 		});
 
-		const products: Partial<Product>[] = [
+		const products = [
 			{
 				id: mockProduct1.id,
 				name: mockProduct1.name,
-				price: mockProduct1.price,
+				price: formatPrice(mockProduct1.price),
 			},
 			{
 				id: mockProduct2.id,
 				name: mockProduct2.name,
-				price: mockProduct2.price,
+				price: formatPrice(mockProduct2.price),
 			},
 		];
 

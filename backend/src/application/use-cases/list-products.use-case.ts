@@ -1,4 +1,5 @@
 import type { ProductFields } from "../../domain/interfaces/products";
+import { formatPrice } from "../../utils/formatPrice";
 import type { IProductRepository } from "../interfaces/product-repository.interface";
 
 export class ListProductsUseCase {
@@ -17,12 +18,23 @@ export class ListProductsUseCase {
 		categoryId?: string;
 		name?: string;
 	}) {
-		return this.productRepository.findAll({
+		const products = await this.productRepository.findAll({
 			page,
 			limit,
 			categoryId,
 			attributes,
 			name,
 		});
+
+		const formattedProducts = products.data.map((product) => ({
+			...product,
+			price: product.price ? formatPrice(product.price) : undefined,
+		}));
+
+		return {
+			total: products.total,
+			data: formattedProducts,
+			pages: products.pages,
+		};
 	}
 }

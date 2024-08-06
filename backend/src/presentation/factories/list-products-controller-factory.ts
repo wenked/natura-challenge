@@ -8,6 +8,5 @@ export function ListProductsControllerFactory(): ListProductsController {
 
 	const listProductsController = new ListProductsController(useCase);
 
-	console.log({ useCase, handle: listProductsController.handle });
 	return listProductsController;
 }

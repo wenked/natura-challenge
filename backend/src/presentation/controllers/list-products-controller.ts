@@ -24,7 +24,7 @@ export class ListProductsController implements Controller {
 			if (!request.query) {
 				return {
 					statusCode: 400,
-					body: {
+					data: {
 						message: "Missing query parameters",
 					},
 				};
@@ -42,14 +42,14 @@ export class ListProductsController implements Controller {
 
 			return {
 				statusCode: 200,
-				body: products,
+				data: products,
 			};
 		} catch (error) {
 			console.error(error);
 
 			return {
 				statusCode: 500,
-				body: {
+				data: {
 					message: "Internal server error",
 				},
 			};

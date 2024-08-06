@@ -1,9 +1,9 @@
 import type { Sequelize } from "sequelize-typescript";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
-import { Product } from "../../database/models/product.model";
 import { setupTestDatabase } from "../../database/sequelize-test.config";
 
 import type { IProductFindAllResponse } from "../../../domain/interfaces/products";
+import { Product } from "../../database/models/product.model";
 import { CategoryRepository } from "../category/category.repository";
 import { ProductRepository } from "./product.repository";
 

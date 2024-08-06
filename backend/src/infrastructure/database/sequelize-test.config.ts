@@ -17,9 +17,8 @@ export async function setupTestDatabase() {
 			password: container.getPassword(),
 			database: container.getDatabase(),
 			logging: false,
+			models: [Category, Product, ProductImage],
 		});
-
-		sequelize.addModels([Category, Product, ProductImage]);
 
 		await sequelize.sync({ force: true });
 

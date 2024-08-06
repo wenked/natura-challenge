@@ -36,7 +36,7 @@ module.exports = {
         updated_at: new Date()
      },{
         id: 'f7b7b8d8-7a6f-4b1f-8f4e-2f4f5f6f7f2f',
-        name: 'casa',
+        name: 'Casa',
         description: 'Categoria de produtos de casa',
         created_at: new Date(),
         updated_at: new Date
