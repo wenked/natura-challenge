@@ -9,8 +9,9 @@ export function useProducts({
   categoryId,
   attributes,
 }: IGetProducts) {
+  console.log({ searchParam, categoryId, attributes });
   return useQuery({
-    queryKey: ['products', { page, limit, name, categoryId }],
+    queryKey: ['products', page, limit, searchParam, categoryId],
     queryFn: () =>
       getProducts({ page, limit, searchParam, categoryId, attributes }),
     initialData: {

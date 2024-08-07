@@ -34,7 +34,7 @@ export function ProductsContextProvider({ children }: ProductsProviderProps) {
     limit: filters?.limit,
     searchParam: filters?.searchParam,
     categoryId: filters?.categoryId,
-    attributes: ['id', 'name', 'price', 'rating', 'discount'],
+    attributes: ['id', 'name', 'price', 'rating', 'discount', 'description'],
   });
 
   console.log({ filters, productsData, isLoadingProducts });
@@ -49,7 +49,7 @@ export function ProductsContextProvider({ children }: ProductsProviderProps) {
       ...prevState,
       page: page || prevState.page,
       limit: limit || prevState.limit,
-      name: searchParam || prevState.searchParam,
+      searchParam: searchParam || prevState.searchParam,
       categoryId: categoryId || prevState.categoryId,
     }));
   }
