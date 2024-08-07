@@ -16,7 +16,7 @@ export interface IProductRepository {
   findAll({
     page,
     limit,
-    name,
+    searchParam,
     categoryId,
     attributes,
   }: IProductFindAll): Promise<IProductFindAllResponse>;

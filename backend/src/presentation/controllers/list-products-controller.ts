@@ -14,7 +14,7 @@ export class ListProductsController implements Controller {
       {
         page: number;
         limit: number;
-        name?: string;
+        searchParam?: string;
         categoryId?: string;
         attributes: ProductFields[];
       }
@@ -30,12 +30,13 @@ export class ListProductsController implements Controller {
         };
       }
 
-      const { page, limit, name, categoryId, attributes } = request.query;
+      const { page, limit, searchParam, categoryId, attributes } =
+        request.query;
 
       const products = await this.useCase.execute({
         page,
         limit,
-        name,
+        searchParam,
         categoryId,
         attributes,
       });

@@ -4,7 +4,7 @@ export const listProductsSchema = z.object({
   query: z.object({
     page: z.coerce.number().default(1),
     limit: z.coerce.number().default(12),
-    name: z.string().optional(),
+    searchParam: z.string().optional(),
     categoryId: z.string().optional(),
     attributes: z
       .array(

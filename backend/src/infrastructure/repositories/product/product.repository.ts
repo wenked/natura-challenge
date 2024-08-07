@@ -33,18 +33,30 @@ export class ProductRepository implements IProductRepository {
     page,
     limit,
     categoryId,
-    name,
+    searchParam,
     attributes,
   }: IProductFindAll): Promise<IProductFindAllResponse> {
-    const where: WhereOptions<ProductModel> = {};
+    let where: WhereOptions<ProductModel> = {};
 
     if (categoryId) {
       where.categoryId = categoryId;
     }
 
-    if (name) {
-      where.name = {
-        [Op.iLike]: `%${name}%`,
+    if (searchParam) {
+      where = {
+        ...where,
+        [Op.or]: [
+          {
+            name: {
+              [Op.iLike]: `%${searchParam}%`,
+            },
+          },
+          {
+            description: {
+              [Op.iLike]: `%${searchParam}%`,
+            },
+          },
+        ],
       };
     }
     console.log({ attributes });

@@ -6,7 +6,7 @@ export interface IProductFindAll {
   page: number;
   limit: number;
   categoryId?: string;
-  name?: string;
+  searchParam?: string;
   attributes: ProductFields[];
 }
 

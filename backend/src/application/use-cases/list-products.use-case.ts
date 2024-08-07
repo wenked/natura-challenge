@@ -10,20 +10,20 @@ export class ListProductsUseCase {
     limit,
     categoryId,
     attributes,
-    name,
+    searchParam,
   }: {
     page: number;
     limit: number;
     attributes: ProductFields[];
     categoryId?: string;
-    name?: string;
+    searchParam?: string;
   }) {
     const products = await this.productRepository.findAll({
       page,
       limit,
       categoryId,
       attributes,
-      name,
+      searchParam,
     });
     console.log(JSON.stringify(products, null, 2));
 
