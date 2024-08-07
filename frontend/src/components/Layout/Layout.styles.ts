@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   height: 100vh;
-  width: 100dvw;
-  
+  width: 100vw;
+
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
   background-color: transparent;
 
