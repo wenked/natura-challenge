@@ -1,54 +1,55 @@
-import { describe, expect, it } from "vitest";
-import { ListProductsUseCase } from "../../application/use-cases/list-products.use-case";
-import { InMemoryCategoryRepository } from "../../infrastructure/repositories/category/in-memory.category.repository";
-import { InMemoryProductRepository } from "../../infrastructure/repositories/product/in-memory.product.repository";
-import { ListProductsController } from "./list-products-controller";
+import { describe, expect, it } from 'vitest';
 
-describe("ListProductsController", () => {
-	it("should return 200 with products", async () => {
-		const categoryRepository = new InMemoryCategoryRepository();
-		const productRepository = new InMemoryProductRepository();
+import { ListProductsUseCase } from '../../application/use-cases/list-products.use-case';
+import { InMemoryCategoryRepository } from '../../infrastructure/repositories/category/in-memory.category.repository';
+import { InMemoryProductRepository } from '../../infrastructure/repositories/product/in-memory.product.repository';
+import { ListProductsController } from './list-products-controller';
 
-		const category = await categoryRepository.create({
-			name: "Category",
-			description: "Category description",
-		});
+describe('ListProductsController', () => {
+  it('should return 200 with products', async () => {
+    const categoryRepository = new InMemoryCategoryRepository();
+    const productRepository = new InMemoryProductRepository();
 
-		await productRepository.create({
-			name: "Product",
-			price: 10,
-			description: "Product description",
-			categoryId: category.id,
-		});
+    const category = await categoryRepository.create({
+      name: 'Category',
+      description: 'Category description',
+    });
 
-		const listProductsUseCase = new ListProductsUseCase(productRepository);
-		const listProductsController = new ListProductsController(
-			listProductsUseCase,
-		);
-		const response = await listProductsController.handle({
-			query: {
-				page: 1,
-				limit: 10,
-				attributes: ["id", "name", "price", "description"],
-			},
-		});
+    await productRepository.create({
+      name: 'Product',
+      price: 10,
+      description: 'Product description',
+      categoryId: category.id,
+    });
 
-		expect(response.statusCode).toBe(200);
-		expect(response.data).toHaveProperty("total");
-		expect(response.data).toHaveProperty("data");
-		expect(response.data).toHaveProperty("pages");
-	});
+    const listProductsUseCase = new ListProductsUseCase(productRepository);
+    const listProductsController = new ListProductsController(
+      listProductsUseCase,
+    );
+    const response = await listProductsController.handle({
+      query: {
+        page: 1,
+        limit: 10,
+        attributes: ['id', 'name', 'price', 'description'],
+      },
+    });
 
-	it("should return 400 if query is missing", async () => {
-		const listProductsUseCase = new ListProductsUseCase(
-			new InMemoryProductRepository(),
-		);
-		const listProductsController = new ListProductsController(
-			listProductsUseCase,
-		);
-		const response = await listProductsController.handle({});
+    expect(response.statusCode).toBe(200);
+    expect(response.data).toHaveProperty('total');
+    expect(response.data).toHaveProperty('data');
+    expect(response.data).toHaveProperty('pages');
+  });
 
-		expect(response.statusCode).toBe(400);
-		expect(response.data).toHaveProperty("message");
-	});
+  it('should return 400 if query is missing', async () => {
+    const listProductsUseCase = new ListProductsUseCase(
+      new InMemoryProductRepository(),
+    );
+    const listProductsController = new ListProductsController(
+      listProductsUseCase,
+    );
+    const response = await listProductsController.handle({});
+
+    expect(response.statusCode).toBe(400);
+    expect(response.data).toHaveProperty('message');
+  });
 });

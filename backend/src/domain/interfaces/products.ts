@@ -1,17 +1,17 @@
-import type { Product } from "../entities/product.entity";
+import type { Product } from '../entities/product.entity';
 
 export type ProductFields = keyof Product;
 
 export interface IProductFindAll {
-	page: number;
-	limit: number;
-	categoryId?: string;
-	name?: string;
-	attributes: ProductFields[];
+  page: number;
+  limit: number;
+  categoryId?: string;
+  name?: string;
+  attributes: ProductFields[];
 }
 
 export interface IProductFindAllResponse {
-	total: number;
-	data: Partial<Product>[];
-	pages: number;
+  total: number;
+  data: Partial<Product>[];
+  pages: number;
 }

@@ -1,33 +1,35 @@
-import { describe, expect, it } from "vitest";
-import { ListCategoriesUseCase } from "../../application/use-cases/list-category.use-case";
-import { InMemoryCategoryRepository } from "../../infrastructure/repositories/category/in-memory.category.repository";
-import { ListCategoriesController } from "./list-categories-controller";
+/* eslint-disable import/no-extraneous-dependencies */
+import { describe, expect, it } from 'vitest';
 
-describe("ListCategoriesController", () => {
-	it("should return 200 with categories", async () => {
-		const categoriesRepository = new InMemoryCategoryRepository();
-		const listCategoriesUseCase = new ListCategoriesUseCase(
-			categoriesRepository,
-		);
-		const listCategoriesController = new ListCategoriesController(
-			listCategoriesUseCase,
-		);
+import { ListCategoriesUseCase } from '../../application/use-cases/list-category.use-case';
+import { InMemoryCategoryRepository } from '../../infrastructure/repositories/category/in-memory.category.repository';
+import { ListCategoriesController } from './list-categories-controller';
 
-		const category = await categoriesRepository.create({
-			name: "Category",
-			description: "Category description",
-		});
+describe('ListCategoriesController', () => {
+  it('should return 200 with categories', async () => {
+    const categoriesRepository = new InMemoryCategoryRepository();
+    const listCategoriesUseCase = new ListCategoriesUseCase(
+      categoriesRepository,
+    );
+    const listCategoriesController = new ListCategoriesController(
+      listCategoriesUseCase,
+    );
 
-		const response = await listCategoriesController.handle({});
+    const category = await categoriesRepository.create({
+      name: 'Category',
+      description: 'Category description',
+    });
 
-		expect(response.statusCode).toBe(200);
-		expect(response.data).toHaveLength(1);
-		expect(response.data).toEqual([
-			{
-				id: category.id,
-				name: category.name,
-				description: category.description,
-			},
-		]);
-	});
+    const response = await listCategoriesController.handle();
+
+    expect(response.statusCode).toBe(200);
+    expect(response.data).toHaveLength(1);
+    expect(response.data).toEqual([
+      {
+        id: category.id,
+        name: category.name,
+        description: category.description,
+      },
+    ]);
+  });
 });

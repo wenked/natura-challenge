@@ -47,7 +47,7 @@ export class ProductRepository implements IProductRepository {
         [Op.iLike]: `%${name}%`,
       };
     }
-
+    console.log({ attributes });
     const products = await ProductModel.findAndCountAll({
       where,
       attributes,
@@ -94,6 +94,8 @@ export class ProductRepository implements IProductRepository {
       categoryId: model.categoryId,
       name: model.name,
       description: model.description,
+      discount: Number(model.discount),
+      rating: Number(model.rating),
       price: model.price,
       images: model.images,
       createdAt: model.createdAt,

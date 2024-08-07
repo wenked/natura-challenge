@@ -35,6 +35,26 @@ module.exports = {
 
       if (category.length === 0) continue;
 
+      const discounts = [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        5,
+        10,
+        15,
+        20,
+        25,
+        30,
+        35,
+        40,
+        45,
+        50,
+      ];
+      const ratings = [4, 4.5, 5];
+
       for (const categoryImage of categoriesImages) {
         const productName = categoryImage.split('.')[0];
 
@@ -45,6 +65,8 @@ module.exports = {
               name: productName,
               price: Math.floor(Math.random() * 10000),
               description: 'Lorem ipsum dolor sit amet',
+              rating: ratings[Math.floor(Math.random() * ratings.length)],
+              discount: discounts[Math.floor(Math.random() * discounts.length)],
               category_id: category[0].id,
               created_at: new Date(),
               updated_at: new Date(),

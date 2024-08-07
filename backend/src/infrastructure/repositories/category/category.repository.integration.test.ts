@@ -1,134 +1,135 @@
-import type { Sequelize } from "sequelize-typescript";
-import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
-import { Category } from "../../database/models/category.model";
-import { setupTestDatabase } from "../../database/sequelize-test.config";
-import { CategoryRepository } from "./category.repository";
+import type { Sequelize } from 'sequelize-typescript';
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
-describe("CategoryRepository Integration Tests", () => {
-	let sequelize: Sequelize;
-	let repository: CategoryRepository;
+import { Category } from '../../database/models/category.model';
+import { setupTestDatabase } from '../../database/sequelize-test.config';
+import { CategoryRepository } from './category.repository';
 
-	beforeAll(async () => {
-		sequelize = await setupTestDatabase();
-		repository = new CategoryRepository();
-	});
+describe('CategoryRepository Integration Tests', () => {
+  let sequelize: Sequelize;
+  let repository: CategoryRepository;
 
-	afterAll(async () => {
-		await sequelize.close();
-	});
+  beforeAll(async () => {
+    sequelize = await setupTestDatabase();
+    repository = new CategoryRepository();
+  });
 
-	beforeEach(async () => {
-		await Category.destroy({ where: {} });
-	});
+  afterAll(async () => {
+    await sequelize.close();
+  });
 
-	describe("create", () => {
-		it("should create a new category", async () => {
-			const newCategory = await repository.create({
-				name: "Test Category",
-				description: "Test Description",
-			});
+  beforeEach(async () => {
+    await Category.destroy({ where: {} });
+  });
 
-			expect(newCategory).toHaveProperty("id");
-			expect(newCategory.name).toBe("Test Category");
-			expect(newCategory.description).toBe("Test Description");
-		});
-	});
+  describe('create', () => {
+    it('should create a new category', async () => {
+      const newCategory = await repository.create({
+        name: 'Test Category',
+        description: 'Test Description',
+      });
 
-	describe("findById", () => {
-		it("should find a category by id", async () => {
-			const createdCategory = await repository.create({
-				name: "Test Category",
-				description: "Test Description",
-			});
+      expect(newCategory).toHaveProperty('id');
+      expect(newCategory.name).toBe('Test Category');
+      expect(newCategory.description).toBe('Test Description');
+    });
+  });
 
-			const foundCategory = await repository.findById(createdCategory.id, [
-				"id",
-				"name",
-			]);
+  describe('findById', () => {
+    it('should find a category by id', async () => {
+      const createdCategory = await repository.create({
+        name: 'Test Category',
+        description: 'Test Description',
+      });
 
-			expect(foundCategory).not.toBeNull();
-			expect(foundCategory?.id).toBe(createdCategory.id);
-			expect(foundCategory?.name).toBe("Test Category");
-		});
+      const foundCategory = await repository.findById(createdCategory.id, [
+        'id',
+        'name',
+      ]);
 
-		it("should return null if category is not found", async () => {
-			const foundCategory = await repository.findById(
-				"058d31b0-51c2-47e5-b295-e45f52700da2",
-				["id", "name"],
-			);
+      expect(foundCategory).not.toBeNull();
+      expect(foundCategory?.id).toBe(createdCategory.id);
+      expect(foundCategory?.name).toBe('Test Category');
+    });
 
-			expect(foundCategory).toBeNull();
-		});
-	});
+    it('should return null if category is not found', async () => {
+      const foundCategory = await repository.findById(
+        '058d31b0-51c2-47e5-b295-e45f52700da2',
+        ['id', 'name'],
+      );
 
-	describe("findAll", () => {
-		it("should return all categories", async () => {
-			await repository.create({
-				name: "Category 1",
-				description: "Description 1",
-			});
-			await repository.create({
-				name: "Category 2",
-				description: "Description 2",
-			});
+      expect(foundCategory).toBeNull();
+    });
+  });
 
-			const categories = await repository.findAll(["name"]);
+  describe('findAll', () => {
+    it('should return all categories', async () => {
+      await repository.create({
+        name: 'Category 1',
+        description: 'Description 1',
+      });
+      await repository.create({
+        name: 'Category 2',
+        description: 'Description 2',
+      });
 
-			expect(categories).toHaveLength(2);
-			expect(categories[0].name).toBe("Category 1");
-			expect(categories[1].name).toBe("Category 2");
-		});
-	});
+      const categories = await repository.findAll(['name']);
 
-	describe("update", () => {
-		it("should update a category", async () => {
-			const createdCategory = await repository.create({
-				name: "Test Category",
-				description: "Test Description",
-			});
+      expect(categories).toHaveLength(2);
+      expect(categories[0].name).toBe('Category 1');
+      expect(categories[1].name).toBe('Category 2');
+    });
+  });
 
-			const updatedCategory = await repository.update(createdCategory.id, {
-				name: "Updated Category",
-				description: "Updated Description",
-			});
+  describe('update', () => {
+    it('should update a category', async () => {
+      const createdCategory = await repository.create({
+        name: 'Test Category',
+        description: 'Test Description',
+      });
 
-			expect(updatedCategory).not.toBeNull();
-			expect(updatedCategory?.id).toBe(createdCategory.id);
-			expect(updatedCategory?.name).toBe("Updated Category");
-			expect(updatedCategory?.description).toBe("Updated Description");
-		});
+      const updatedCategory = await repository.update(createdCategory.id, {
+        name: 'Updated Category',
+        description: 'Updated Description',
+      });
 
-		it("should return null if category is not found", async () => {
-			const updatedCategory = await repository.update(
-				"058d31b0-51c2-47e5-b295-e45f52700da2",
-				{
-					name: "Updated Category",
-					description: "Updated Description",
-				},
-			);
+      expect(updatedCategory).not.toBeNull();
+      expect(updatedCategory?.id).toBe(createdCategory.id);
+      expect(updatedCategory?.name).toBe('Updated Category');
+      expect(updatedCategory?.description).toBe('Updated Description');
+    });
 
-			expect(updatedCategory).toBeNull();
-		});
-	});
+    it('should return null if category is not found', async () => {
+      const updatedCategory = await repository.update(
+        '058d31b0-51c2-47e5-b295-e45f52700da2',
+        {
+          name: 'Updated Category',
+          description: 'Updated Description',
+        },
+      );
 
-	describe("delete", () => {
-		it("should delete a category", async () => {
-			const createdCategory = await repository.create({
-				name: "Test Category",
-				description: "Test Description",
-			});
+      expect(updatedCategory).toBeNull();
+    });
+  });
 
-			const isDeleted = await repository.delete(createdCategory.id);
+  describe('delete', () => {
+    it('should delete a category', async () => {
+      const createdCategory = await repository.create({
+        name: 'Test Category',
+        description: 'Test Description',
+      });
 
-			expect(isDeleted).toBe(true);
-		});
+      const isDeleted = await repository.delete(createdCategory.id);
 
-		it("should return false if category is not found", async () => {
-			const isDeleted = await repository.delete(
-				"058d31b0-51c2-47e5-b295-e45f52700da2",
-			);
+      expect(isDeleted).toBe(true);
+    });
 
-			expect(isDeleted).toBe(false);
-		});
-	});
+    it('should return false if category is not found', async () => {
+      const isDeleted = await repository.delete(
+        '058d31b0-51c2-47e5-b295-e45f52700da2',
+      );
+
+      expect(isDeleted).toBe(false);
+    });
+  });
 });
