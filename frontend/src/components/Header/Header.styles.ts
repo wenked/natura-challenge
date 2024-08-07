@@ -20,4 +20,21 @@ export const Container = styled.div`
     padding-right: 96px;
     position: relative;
     margin-top:2rem;
+
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
+`;
+
+export const StyledForm = styled.form`
+    width: 100%;
+    max-width: 50rem;
+`;
+
+
+
+export const ButtonsContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
 `;
