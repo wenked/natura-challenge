@@ -1,10 +1,11 @@
-import dotenv from "dotenv";
-import { defineConfig } from "vitest/config";
+/* eslint-disable import/no-extraneous-dependencies */
+import dotenv from 'dotenv';
+import { defineConfig } from 'vitest/config';
 
-dotenv.config({ path: ".env.test" });
+dotenv.config({ path: '.env.test' });
 
 export default defineConfig({
-	test: {
-		include: ["**/*.integration.test.ts"],
-	},
+  test: {
+    include: ['**/*.integration.test.ts'],
+  },
 });
