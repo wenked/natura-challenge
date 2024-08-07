@@ -10,7 +10,17 @@ import {
   StyledForm,
 } from './MobileHeaderContainer.styles';
 
-export function MobileHeaderContainer() {
+interface MobileHeaderContainerProps {
+  searchParam: string;
+  setSearchParam: React.Dispatch<React.SetStateAction<string>>;
+  handleSearch: (event: React.FormEvent<HTMLFormElement>) => void;
+}
+
+export function MobileHeaderContainer({
+  searchParam,
+  setSearchParam,
+  handleSearch,
+}: MobileHeaderContainerProps) {
   return (
     <Container>
       <InfoContainer>
@@ -38,9 +48,11 @@ export function MobileHeaderContainer() {
           />
         </ButtonsContainer>
       </InfoContainer>
-      <StyledForm>
+      <StyledForm onSubmit={handleSearch}>
         <Input
           type="text"
+          value={searchParam}
+          onChange={event => setSearchParam(event.target.value)}
           placeholder="O que está buscando hoje?"
           leftIcon={<IconButton type="submit" icon={<CiSearch size={18} />} />}
         />

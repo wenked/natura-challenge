@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Layout from 'components/Layout/Layout.component';
+import { ProductsContextProvider } from 'contexts/Products.context';
 import { BrowserRouter } from 'react-router-dom';
 import GlobalStyle from 'styles/global';
 import AppRoutes from './routes';
@@ -10,9 +11,11 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <Layout>
-          <AppRoutes />
-        </Layout>
+        <ProductsContextProvider>
+          <Layout>
+            <AppRoutes />
+          </Layout>
+        </ProductsContextProvider>
         <GlobalStyle />
       </BrowserRouter>
     </QueryClientProvider>

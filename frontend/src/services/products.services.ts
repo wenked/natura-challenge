@@ -1,11 +1,5 @@
+import { IGetProducts, IGetProductsResponse } from 'types/products.types';
 import api from './api';
-
-interface IGetProducts {
-  page: number;
-  limit: number;
-  name?: string;
-  categoryId?: string;
-}
 
 export async function getProducts({
   page,
@@ -13,7 +7,7 @@ export async function getProducts({
   name,
   categoryId,
 }: IGetProducts) {
-  const { data } = await api.get('/products', {
+  const { data } = await api.get<IGetProductsResponse>('/products', {
     params: {
       page,
       limit,
