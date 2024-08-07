@@ -1,16 +1,3 @@
-export interface IGetProducts {
-  page?: number;
-  limit?: number;
-  name?: string;
-  categoryId?: string;
-}
-
-export interface IProductImage {
-  id: string;
-  url: string;
-  productId?: string;
-}
-
 export interface IProduct {
   id: string;
   name?: string;
@@ -20,6 +7,20 @@ export interface IProduct {
   images?: IProductImage[];
   rating?: number;
   discount?: number;
+}
+
+export interface IGetProducts {
+  page?: number;
+  limit?: number;
+  searchParam?: string;
+  categoryId?: string;
+  attributes?: string[];
+}
+
+export interface IProductImage {
+  id: string;
+  url: string;
+  productId?: string;
 }
 
 export interface IGetProductsResponse {

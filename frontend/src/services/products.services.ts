@@ -4,15 +4,17 @@ import api from './api';
 export async function getProducts({
   page,
   limit,
-  name,
+  searchParam,
   categoryId,
+  attributes,
 }: IGetProducts) {
   const { data } = await api.get<IGetProductsResponse>('/products', {
     params: {
       page,
       limit,
-      name,
+      searchParam,
       categoryId,
+      attributes,
     },
   });
 

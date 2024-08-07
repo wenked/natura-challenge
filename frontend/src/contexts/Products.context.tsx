@@ -9,7 +9,12 @@ interface ProductsProviderProps {
 interface ProductsContextProps {
   productsData: IGetProductsResponse;
   isLoadingProducts: boolean;
-  filterProducts: ({ page, limit, name, categoryId }: IGetProducts) => void;
+  filterProducts: ({
+    page,
+    limit,
+    searchParam,
+    categoryId,
+  }: IGetProducts) => void;
 }
 
 const ProductsContext = createContext<ProductsContextProps | undefined>(
@@ -17,30 +22,36 @@ const ProductsContext = createContext<ProductsContextProps | undefined>(
 );
 
 export function ProductsContextProvider({ children }: ProductsProviderProps) {
-  const [name, setName] = useState('');
-  const [categoryId, setCategoryId] = useState('');
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(12);
-
-  const { data: productsData, isLoading: isLoadingProducts } = useProducts({
-    page,
-    limit,
-    name,
-    categoryId,
+  const [filters, setFilters] = useState<IGetProducts>({
+    page: 1,
+    limit: 12,
+    searchParam: undefined,
+    categoryId: undefined,
   });
 
-  console.log({ productsData, isLoadingProducts });
+  const { data: productsData, isFetching: isLoadingProducts } = useProducts({
+    page: filters?.page,
+    limit: filters?.limit,
+    searchParam: filters?.searchParam,
+    categoryId: filters?.categoryId,
+    attributes: ['id', 'name', 'price', 'rating', 'discount'],
+  });
+
+  console.log({ filters, productsData, isLoadingProducts });
 
   function filterProducts({
     page = 1,
     limit = 12,
-    name,
+    searchParam,
     categoryId,
   }: IGetProducts) {
-    setPage(page);
-    setLimit(limit);
-    setName(name || '');
-    setCategoryId(categoryId || '');
+    setFilters(prevState => ({
+      ...prevState,
+      page: page || prevState.page,
+      limit: limit || prevState.limit,
+      name: searchParam || prevState.searchParam,
+      categoryId: categoryId || prevState.categoryId,
+    }));
   }
 
   const context = useMemo(() => {

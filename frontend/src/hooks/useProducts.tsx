@@ -5,12 +5,14 @@ import { IGetProducts } from 'types/products.types';
 export function useProducts({
   page = 1,
   limit = 12,
-  name,
+  searchParam,
   categoryId,
+  attributes,
 }: IGetProducts) {
   return useQuery({
     queryKey: ['products', { page, limit, name, categoryId }],
-    queryFn: () => getProducts({ page, limit, name, categoryId }),
+    queryFn: () =>
+      getProducts({ page, limit, searchParam, categoryId, attributes }),
     initialData: {
       data: [],
       total: 0,

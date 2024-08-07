@@ -1,7 +1,9 @@
+import { Dropdown } from 'components/Dropdown/Dropdown.component';
 import { IconButton } from 'components/IconButton/IconButton.component';
 import Input from 'components/Input/Input.component';
 import { MobileHeaderContainer } from 'components/MobileHeaderContainer/MobileHeaderContainer.component';
 import { useProductsContext } from 'contexts/Products.context';
+import { useCategories } from 'hooks/useCategories';
 import { useState } from 'react';
 import { CiSearch } from 'react-icons/ci';
 import { FaRegUserCircle } from 'react-icons/fa';
@@ -15,6 +17,8 @@ import {
 
 export function Header() {
   const [searchParam, setSearchParam] = useState('');
+
+  const { data: categories, isFetching } = useCategories();
 
   const { filterProducts } = useProductsContext();
 
@@ -32,6 +36,21 @@ export function Header() {
         handleSearch={handleSearch}
       />
       <Container>
+        <h2>Cosmético&Co</h2>
+
+        {isFetching ? (
+          <p>Carregando...</p>
+        ) : (
+          <Dropdown
+            onSelect={(value: string) => filterProducts({ categoryId: value })}
+            options={categories.map(category => ({
+              value: category.id,
+              label: category.name,
+            }))}
+            placeholder="Categorias"
+          />
+        )}
+
         <StyledForm onSubmit={handleSearch}>
           <Input
             type="text"
