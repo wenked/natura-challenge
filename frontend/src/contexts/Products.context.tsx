@@ -1,3 +1,8 @@
+import {
+  FetchNextPageOptions,
+  InfiniteData,
+  InfiniteQueryObserverResult,
+} from '@tanstack/react-query';
 import { useProducts } from 'hooks/useProducts';
 import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
 import { IGetProducts, IGetProductsResponse } from 'types/products.types';
@@ -7,7 +12,7 @@ interface ProductsProviderProps {
 }
 
 interface ProductsContextProps {
-  productsData: IGetProductsResponse;
+  productsData: InfiniteData<IGetProductsResponse, unknown> | undefined;
   isLoadingProducts: boolean;
   filterProducts: ({
     page,
@@ -15,6 +20,17 @@ interface ProductsContextProps {
     searchParam,
     categoryId,
   }: IGetProducts) => void;
+  status: 'error' | 'success' | 'pending';
+  isFetchingNextPage: boolean;
+  hasNextPage: boolean;
+  fetchNextPage: (
+    options?: FetchNextPageOptions | undefined,
+  ) => Promise<
+    InfiniteQueryObserverResult<
+      InfiniteData<IGetProductsResponse, unknown>,
+      Error
+    >
+  >;
 }
 
 const ProductsContext = createContext<ProductsContextProps | undefined>(
@@ -29,7 +45,14 @@ export function ProductsContextProvider({ children }: ProductsProviderProps) {
     categoryId: undefined,
   });
 
-  const { data: productsData, isFetching: isLoadingProducts } = useProducts({
+  const {
+    data: productsData,
+    isFetching: isLoadingProducts,
+    status,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useProducts({
     page: filters?.page,
     limit: filters?.limit,
     searchParam: filters?.searchParam,
@@ -59,8 +82,20 @@ export function ProductsContextProvider({ children }: ProductsProviderProps) {
       productsData,
       isLoadingProducts,
       filterProducts,
+      status,
+      fetchNextPage,
+      hasNextPage,
+      isFetchingNextPage,
     };
-  }, [productsData, isLoadingProducts, filterProducts]);
+  }, [
+    productsData,
+    isLoadingProducts,
+    filterProducts,
+    status,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  ]);
 
   return (
     <ProductsContext.Provider value={context}>

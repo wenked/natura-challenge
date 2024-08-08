@@ -40,7 +40,7 @@ export function Dropdown({
     <DropdownContainer>
       <DropdownHeader onClick={toggleDropdown}>
         {selectedOption ? selectedOption.label : placeholder}
-        <Arrow isOpen={isOpen} />
+        <Arrow $isOpen={isOpen} />
       </DropdownHeader>
       {isOpen && (
         <DropdownList>

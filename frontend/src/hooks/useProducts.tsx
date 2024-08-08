@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { getProducts } from 'services/products.services';
-import { IGetProducts } from 'types/products.types';
+import { IGetProducts, IGetProductsResponse } from 'types/products.types';
 
 export function useProducts({
   page = 1,
@@ -10,14 +10,24 @@ export function useProducts({
   attributes,
 }: IGetProducts) {
   console.log({ searchParam, categoryId, attributes });
-  return useQuery({
-    queryKey: ['products', page, limit, searchParam, categoryId],
-    queryFn: () =>
-      getProducts({ page, limit, searchParam, categoryId, attributes }),
-    initialData: {
-      data: [],
-      total: 0,
-      pages: 1,
+  return useInfiniteQuery<IGetProductsResponse, Error>({
+    queryKey: ['products', limit, searchParam, categoryId],
+    queryFn: ({ pageParam }) =>
+      getProducts({
+        page: pageParam as number,
+        limit,
+        searchParam,
+        categoryId,
+        attributes,
+      }),
+    initialPageParam: 1,
+    refetchOnWindowFocus: false,
+    getNextPageParam: (lastPage: IGetProductsResponse) => {
+      if (lastPage.hasNextPage) {
+        return lastPage.nextPage;
+      }
+
+      return undefined;
     },
   });
 }

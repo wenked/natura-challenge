@@ -17,12 +17,12 @@ export const DropdownHeader = styled.div`
   border-radius: 99999px;
 `;
 
-export const Arrow = styled.span<{ isOpen: boolean }>`
+export const Arrow = styled.span<{ $isOpen: boolean }>`
   border: solid black;
   border-width: 0 2px 2px 0;
   display: inline-block;
   padding: 0.25rem;
-  transform: ${props => (props.isOpen ? 'rotate(-135deg)' : 'rotate(45deg)')};
+  transform: ${props => (props.$isOpen ? 'rotate(-135deg)' : 'rotate(45deg)')};
 `;
 
 export const DropdownList = styled.ul`

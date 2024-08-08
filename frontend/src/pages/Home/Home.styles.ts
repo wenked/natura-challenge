@@ -5,6 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  background-color: rgb(250 250 250 / 1);
 `;
 
 export const HomeTextContainer = styled.div`

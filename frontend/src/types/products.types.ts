@@ -3,15 +3,16 @@ export interface IProduct {
   name?: string;
   description?: string;
   price?: string;
+  oldPrice?: string;
   categoryId?: string;
-  images?: IProductImage[];
-  rating?: number;
+  images: IProductImage[];
+  rating: number;
   discount?: number;
 }
 
 export interface IGetProducts {
-  page?: number;
-  limit?: number;
+  page: number;
+  limit: number;
   searchParam?: string;
   categoryId?: string;
   attributes?: string[];
@@ -27,4 +28,7 @@ export interface IGetProductsResponse {
   data: IProduct[];
   total: number;
   pages: number;
+  currentPage: number;
+  nextPage: number;
+  hasNextPage: boolean;
 }
