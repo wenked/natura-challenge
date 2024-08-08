@@ -2,6 +2,7 @@ import { Button } from 'components/Button/Button.component';
 import { Ratings } from 'components/Ratings/Ratings.component';
 import { useCartContext } from 'contexts/Cart.context';
 import { IProduct } from 'types/products.types';
+import { formatPrice } from 'utils/formatPrice';
 import {
   Container,
   Discount,
@@ -33,7 +34,7 @@ export function ProductCard({ product }: ProductCardProps) {
               <Discount> -{product.discount}%</Discount>
             </>
           ) : (
-            product.price
+            formatPrice(product.price / 100)
           )}
         </NewPrice>
       </PriceContainer>
