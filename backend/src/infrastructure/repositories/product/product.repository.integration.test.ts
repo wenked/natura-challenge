@@ -1,5 +1,13 @@
 import type { Sequelize } from 'sequelize-typescript';
-import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest';
 
 import type { IProductFindAllResponse } from '../../../domain/interfaces/products';
 import { Product } from '../../database/models/product.model';
@@ -13,7 +21,18 @@ describe('ProductRepository Integration Tests', () => {
   let categoryRepository: CategoryRepository;
 
   beforeAll(async () => {
-    sequelize = await setupTestDatabase();
+    await vi.waitFor(
+      async () => {
+        sequelize = await setupTestDatabase();
+
+        expect(sequelize).toBeDefined();
+      },
+      {
+        timeout: 10000,
+        interval: 60,
+      },
+    );
+
     repository = new ProductRepository();
     categoryRepository = new CategoryRepository();
   });
@@ -206,7 +225,7 @@ describe('ProductRepository Integration Tests', () => {
         attributes: ['id', 'name'],
         limit: 12,
         page: 1,
-        name: 'Product 1',
+        searchParam: 'Product 1',
       });
 
       const response: IProductFindAllResponse = {

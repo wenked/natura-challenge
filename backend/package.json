@@ -10,7 +10,7 @@
     "run:migration": "sequelize-cli db:migrate",
     "run:revert": "sequelize-cli db:migrate:undo",
     "run:seed": "sequelize-cli db:seed:all",
-    "test": "vitest",
+    "test": "DEBUG=testcontainers* vitest",
     "test:integration": "vitest --config vite.config.integration.ts"
   },
   "author": "",
@@ -36,6 +36,7 @@
     "prettier": "^3.3.3",
     "sequelize-cli": "^6.6.2",
     "supertest": "^7.0.0",
+    "testcontainers": "^10.11.0",
     "tsup": "^8.2.4",
     "tsx": "^4.16.5",
     "typescript": "^5.5.4",
