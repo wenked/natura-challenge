@@ -1,5 +1,5 @@
 import { CSSProperties, ReactNode } from 'react';
-import { Container } from './IconButton.styles';
+import { CartBadge, Container } from './IconButton.styles';
 
 interface ButtonIconProps extends React.HTMLAttributes<HTMLButtonElement> {
   icon: ReactNode;
@@ -7,11 +7,22 @@ interface ButtonIconProps extends React.HTMLAttributes<HTMLButtonElement> {
   onClick?: () => void;
   type?: 'button' | 'submit';
   disabled?: boolean;
+  badge?: number;
 }
 
-export function IconButton({ icon, containerStyle, ...rest }: ButtonIconProps) {
+export function IconButton({
+  icon,
+  badge = 0,
+  containerStyle,
+  ...rest
+}: ButtonIconProps) {
   return (
     <Container style={containerStyle} {...rest}>
+      {badge > 0 ? (
+        <CartBadge>
+          <span>{badge > 9 ? '+9' : badge}</span>
+        </CartBadge>
+      ) : null}
       {icon}
     </Container>
   );

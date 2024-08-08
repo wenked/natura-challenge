@@ -1,5 +1,6 @@
 import { IconButton } from 'components/IconButton/IconButton.component';
 import Input from 'components/Input/Input.component';
+import { useCartContext } from 'contexts/Cart.context';
 import { CiSearch } from 'react-icons/ci';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { FiShoppingCart } from 'react-icons/fi';
@@ -26,6 +27,8 @@ export function MobileHeaderContainer({
   handleNavigateToCart,
   handleNavigateToHome,
 }: MobileHeaderContainerProps) {
+  const { cart } = useCartContext();
+
   return (
     <Container>
       <InfoContainer>
@@ -35,12 +38,9 @@ export function MobileHeaderContainer({
 
         <ButtonsContainer>
           <IconButton
-            icon={
-              <FiShoppingCart
-                size={22}
-                onClick={() => handleNavigateToCart()}
-              />
-            }
+            badge={cart.length}
+            onClick={() => handleNavigateToCart()}
+            icon={<FiShoppingCart size={22} />}
           />
           <IconButton icon={<FaRegUserCircle size={22} onClick={() => {}} />} />
         </ButtonsContainer>

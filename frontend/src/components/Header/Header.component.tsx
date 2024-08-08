@@ -2,6 +2,7 @@ import { Dropdown } from 'components/Dropdown/Dropdown.component';
 import { IconButton } from 'components/IconButton/IconButton.component';
 import Input from 'components/Input/Input.component';
 import { MobileHeaderContainer } from 'components/MobileHeaderContainer/MobileHeaderContainer.component';
+import { useCartContext } from 'contexts/Cart.context';
 import { useProductsContext } from 'contexts/Products.context';
 import { useCategories } from 'hooks/useCategories';
 import { useState } from 'react';
@@ -20,7 +21,7 @@ import {
 export function Header() {
   const navigate = useNavigate();
   const [searchParam, setSearchParam] = useState('');
-
+  const { cart } = useCartContext();
   const { data: categories, isFetching } = useCategories();
 
   const { filterProducts } = useProductsContext();
@@ -79,13 +80,11 @@ export function Header() {
         </StyledForm>
         <ButtonsContainer>
           <IconButton
-            icon={
-              <FiShoppingCart
-                size={22}
-                onClick={() => handleNavigateToCart()}
-              />
-            }
+            badge={cart.length}
+            onClick={() => handleNavigateToCart()}
+            icon={<FiShoppingCart size={22} />}
           />
+
           <IconButton icon={<FaRegUserCircle size={22} onClick={() => {}} />} />
         </ButtonsContainer>
       </Container>

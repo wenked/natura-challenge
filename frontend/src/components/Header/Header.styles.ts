@@ -44,4 +44,5 @@ export const ButtonsContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 1rem;
+  position: relative;
 `;
