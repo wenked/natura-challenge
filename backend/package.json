@@ -6,7 +6,7 @@
   "scripts": {
     "start": "tsx src/server.js",
     "dev": "tsx watch src/server.ts",
-    "build": "tsup",
+    "build": "tsc",
     "run:migration": "sequelize-cli db:migrate",
     "run:revert": "sequelize-cli db:migrate:undo",
     "run:seed": "sequelize-cli db:seed:all",
