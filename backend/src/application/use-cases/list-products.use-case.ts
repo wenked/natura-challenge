@@ -1,3 +1,5 @@
+import { calculateOldPrice } from 'utils/calculateOldPrice';
+
 import type { ProductFields } from '../../domain/interfaces/products';
 import { formatPrice } from '../../utils/formatPrice';
 import type { IProductRepository } from '../interfaces/product-repository.interface';
@@ -28,6 +30,10 @@ export class ListProductsUseCase {
 
     const formattedProducts = products.data.map(product => ({
       ...product,
+      oldPrice:
+        product.discount && product.price
+          ? calculateOldPrice(product.price, product.discount)
+          : undefined,
       price: product.price ? formatPrice(product.price) : undefined,
     }));
 
@@ -37,6 +43,7 @@ export class ListProductsUseCase {
       pages: products.pages,
       currentPage: page,
       nextPage: page + 1,
+
       hasNextPage: page < products.pages,
     };
   }
