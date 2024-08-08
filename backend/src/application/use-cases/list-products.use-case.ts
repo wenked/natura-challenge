@@ -25,7 +25,6 @@ export class ListProductsUseCase {
       attributes,
       searchParam,
     });
-    console.log(JSON.stringify(products, null, 2));
 
     const formattedProducts = products.data.map(product => ({
       ...product,
@@ -36,6 +35,9 @@ export class ListProductsUseCase {
       total: products.total,
       data: formattedProducts,
       pages: products.pages,
+      currentPage: page,
+      nextPage: page + 1,
+      hasNextPage: page < products.pages,
     };
   }
 }
