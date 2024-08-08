@@ -8,6 +8,9 @@ RUN npm install
 
 COPY . .
 
+ARG VITE_REACT_APP_API_URL
+ARG VITE_PORT
+
 RUN npm run build
 
 
