@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable no-continue */
 /* eslint-disable no-await-in-loop */
+const { randomUUID } = require('node:crypto');
 const fs = require('node:fs');
 const path = require('node:path');
 
@@ -66,6 +67,7 @@ module.exports = {
           'products',
           [
             {
+              id: randomUUID(),
               name: productName,
               price: Math.floor(Math.random() * 10000),
               description: 'Lorem ipsum dolor sit amet',
@@ -81,6 +83,7 @@ module.exports = {
 
         await queryInterface.bulkInsert('product_images', [
           {
+            id: randomUUID(),
             product_id: newProduct.id,
             url: `${process.env.API_URL}/api/public/images/${categoryFolder}/${categoryImage}`,
             created_at: new Date(),
