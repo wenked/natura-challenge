@@ -6,6 +6,10 @@ const path = require('node:path');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    await queryInterface.sequelize.query(
+      'CREATE EXTENSION IF NOT EXISTS "uuid-ossp";',
+    );
+
     const categoriesFolder = fs.readdirSync(
       path.resolve(__dirname, '..', '..', '..', '..', 'public', 'images'),
     );
