@@ -5,7 +5,6 @@ import {
 } from '@tanstack/react-query';
 import { useProducts } from 'hooks/useProducts';
 import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
-import { ICartProduct } from 'types/cart.types';
 import { IGetProducts, IGetProductsResponse } from 'types/products.types';
 
 interface ProductsProviderProps {
@@ -39,7 +38,6 @@ const ProductsContext = createContext<ProductsContextProps | undefined>(
 );
 
 export function ProductsContextProvider({ children }: ProductsProviderProps) {
-  const [cart, setCart] = useState<ICartProduct[]>([]);
   const [filters, setFilters] = useState<IGetProducts>({
     page: 1,
     limit: 12,
