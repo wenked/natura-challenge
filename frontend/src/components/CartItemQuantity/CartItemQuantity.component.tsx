@@ -9,7 +9,6 @@ interface CartItemQuantityProps {
 export function CartItemQuantity({ cartProduct }: CartItemQuantityProps) {
   const { removeOneFromCart, addToCart } = useCartContext();
 
-  console.log({ cartProduct });
   return (
     <Container>
       <button onClick={() => removeOneFromCart(cartProduct.product.id)}>

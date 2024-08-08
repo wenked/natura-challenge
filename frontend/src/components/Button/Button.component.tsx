@@ -5,7 +5,8 @@ export interface ButtonProps
   children: React.ReactNode;
   onClick?: () => void;
   size?: 'sm' | 'md' | 'lg';
-  variant: 'primary' | 'secondary';
+  variant: 'primary' | 'secondary' | 'tertiary';
+  fullWidth?: boolean;
   isLoading?: boolean;
   customContainerStyle?: React.CSSProperties;
 }
@@ -17,6 +18,7 @@ export function Button({
   variant,
   isLoading,
   customContainerStyle,
+  fullWidth,
   ...restProps
 }: ButtonProps) {
   return (

@@ -27,7 +27,7 @@ export function Header() {
 
   function handleSearch(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log('search', searchParam);
+
     filterProducts({ searchParam });
   }
 

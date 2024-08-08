@@ -29,7 +29,6 @@ const CartContext = createContext<CartContextProps | undefined>(undefined);
 export function CartContextProvider({ children }: CartProviderProps) {
   const [cart, setCart] = useState<ICartProduct[]>([]);
   const localStorageCart = localStorage.getItem('@cart');
-  console.log({ localStorageCart });
 
   function addToCart(product: IProduct) {
     const productIndex = cart.findIndex(

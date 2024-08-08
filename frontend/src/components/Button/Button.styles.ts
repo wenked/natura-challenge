@@ -7,12 +7,35 @@ export const Container = styled.div`
 `;
 
 export const StyledButton = styled.button<ButtonProps>`
-  background-color: ${({ variant }) =>
-    variant === 'primary' ? '#f85e25' : 'transparent'};
+  background-color: ${({ variant }) => {
+    switch (variant) {
+      case 'primary':
+        return '#f85e25';
+      case 'tertiary':
+        return '#000000';
+      case 'secondary':
+        return 'transparent';
+      default:
+        return '#fff';
+    }
+  }};
   width: 100%;
-  color: ${({ variant }) => (variant === 'primary' ? '#fff' : '#f85e25')};
+  color: ${({ variant }) => {
+    switch (variant) {
+      case 'primary':
+        return '#fff';
+      case 'tertiary':
+        return '#fff';
+      case 'secondary':
+        return '#f85e25';
+      default:
+        return '#fff';
+    }
+  }};
   border: ${({ variant }) =>
-    variant === 'primary' ? 'none' : '1px solid #f85e25'};
+    variant === 'primary' || variant === 'tertiary'
+      ? 'none'
+      : '1px solid #f85e25'};
   padding: 1rem 2rem;
   border-radius: 10rem;
   cursor: pointer;

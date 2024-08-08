@@ -9,4 +9,8 @@ export const Container = styled.div`
   border-radius: 2rem;
   padding: 2rem;
   min-height: 30rem;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;

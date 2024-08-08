@@ -7,7 +7,7 @@ export const Container = styled.div`
   border: 1px solid #f0f0f0;
   border-radius: 2rem;
   padding: 2rem;
-  height: 25rem;
+  height: 35rem;
 
   h2 {
     display: flex;
@@ -15,6 +15,10 @@ export const Container = styled.div`
     align-items: center;
     font-size: 2rem;
     font-weight: 700;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
   }
 `;
 

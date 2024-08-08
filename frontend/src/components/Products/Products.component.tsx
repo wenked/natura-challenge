@@ -12,8 +12,6 @@ export function Products() {
     isFetchingNextPage,
   } = useProductsContext();
 
-  console.log({ hasNextPage });
-
   return (
     <Container>
       {status === 'pending' ? (

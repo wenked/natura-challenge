@@ -59,4 +59,8 @@ export const CartInfoContainer = styled.div`
   width: 100%;
   margin-top: 1rem;
   gap: 1rem;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
