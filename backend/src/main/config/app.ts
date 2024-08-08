@@ -2,7 +2,6 @@ import cors from 'cors';
 import express from 'express';
 import path from 'node:path';
 
-import { errorMiddleware } from '../../presentation/middlewares';
 import { setupRoutes } from '../../presentation/routes/setup-routes';
 
 const app = express();
@@ -17,6 +16,5 @@ app.use(
 );
 
 setupRoutes(app);
-app.use(errorMiddleware);
 
 export default app;
