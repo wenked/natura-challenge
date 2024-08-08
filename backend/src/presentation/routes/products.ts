@@ -5,6 +5,7 @@ import { ListProductsControllerFactory } from '../factories/list-products-contro
 import { validate } from '../middlewares';
 import { listProductsSchema } from '../validators/products/products.schema';
 
+// teste
 export function createProductsRoutes(router: Router) {
   const listProductsController = ListProductsControllerFactory();
 
