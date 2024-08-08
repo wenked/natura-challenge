@@ -23,8 +23,6 @@ export const validate =
         req.params = parsedParams.params;
       }
 
-      console.log({ parsedParams });
-
       next();
       return null;
     } catch (error) {

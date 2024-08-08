@@ -1,6 +1,5 @@
-import { calculateOldPrice } from 'utils/calculateOldPrice';
-
 import type { ProductFields } from '../../domain/interfaces/products';
+import { calculateOldPrice } from '../../utils/calculateOldPrice';
 import { formatPrice } from '../../utils/formatPrice';
 import type { IProductRepository } from '../interfaces/product-repository.interface';
 
@@ -34,7 +33,12 @@ export class ListProductsUseCase {
         product.discount && product.price
           ? calculateOldPrice(product.price, product.discount)
           : undefined,
-      price: product.price ? formatPrice(product.price) : undefined,
+      discountValue:
+        product.discount && product.price
+          ? product.price / (100 - product.discount)
+          : undefined,
+      formatedPrice: product.price ? formatPrice(product.price) : undefined,
+      price: product.price,
     }));
 
     return {

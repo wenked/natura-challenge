@@ -59,7 +59,7 @@ export class ProductRepository implements IProductRepository {
         ],
       };
     }
-    console.log({ attributes });
+
     const products = await ProductModel.findAndCountAll({
       where,
       attributes,
