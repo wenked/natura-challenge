@@ -1,10 +1,11 @@
 const { resolve } = require('node:path');
 
 module.exports = {
-  config: resolve(__dirname, 'build', 'config', 'database.js'),
+  config: resolve(__dirname, 'build', 'src', 'config', 'database.js'),
   'models-path': resolve(
     __dirname,
     'build',
+    'src',
     'infrastructure',
     'database',
     'models',
