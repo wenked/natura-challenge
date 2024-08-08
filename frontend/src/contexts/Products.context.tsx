@@ -5,6 +5,7 @@ import {
 } from '@tanstack/react-query';
 import { useProducts } from 'hooks/useProducts';
 import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
+import { ICartProduct } from 'types/cart.types';
 import { IGetProducts, IGetProductsResponse } from 'types/products.types';
 
 interface ProductsProviderProps {
@@ -38,6 +39,7 @@ const ProductsContext = createContext<ProductsContextProps | undefined>(
 );
 
 export function ProductsContextProvider({ children }: ProductsProviderProps) {
+  const [cart, setCart] = useState<ICartProduct[]>([]);
   const [filters, setFilters] = useState<IGetProducts>({
     page: 1,
     limit: 12,
@@ -60,8 +62,6 @@ export function ProductsContextProvider({ children }: ProductsProviderProps) {
     attributes: ['id', 'name', 'price', 'rating', 'discount', 'description'],
   });
 
-  console.log({ filters, productsData, isLoadingProducts });
-
   function filterProducts({
     page = 1,
     limit = 12,
@@ -70,10 +70,10 @@ export function ProductsContextProvider({ children }: ProductsProviderProps) {
   }: IGetProducts) {
     setFilters(prevState => ({
       ...prevState,
-      page: page || prevState.page,
-      limit: limit || prevState.limit,
-      searchParam: searchParam || prevState.searchParam,
-      categoryId: categoryId || prevState.categoryId,
+      page,
+      limit,
+      searchParam: searchParam === '' ? undefined : searchParam,
+      categoryId: categoryId,
     }));
   }
 

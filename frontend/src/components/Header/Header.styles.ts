@@ -28,6 +28,13 @@ export const Container = styled.div`
   }
 `;
 
+export const LogoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+`;
+
 export const StyledForm = styled.form`
   width: 100%;
   max-width: 50rem;

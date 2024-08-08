@@ -1,5 +1,6 @@
 import { Button } from 'components/Button/Button.component';
 import { Ratings } from 'components/Ratings/Ratings.component';
+import { useCartContext } from 'contexts/Cart.context';
 import { IProduct } from 'types/products.types';
 import {
   Container,
@@ -15,6 +16,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const { addToCart } = useCartContext();
   return (
     <Container>
       <Image src={product.images[0].url} alt={product.name} />
@@ -27,7 +29,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <NewPrice>
           {product.discount ? (
             <>
-              {product.price}
+              {product.formatedPrice}
               <Discount> -{product.discount}%</Discount>
             </>
           ) : (
@@ -39,9 +41,7 @@ export function ProductCard({ product }: ProductCardProps) {
       <Button
         style={{ marginTop: '1rem' }}
         variant="primary"
-        onClick={() => {
-          console.log('Product added to cart');
-        }}
+        onClick={() => addToCart(product)}
       >
         Adicionar ao carrinho
       </Button>

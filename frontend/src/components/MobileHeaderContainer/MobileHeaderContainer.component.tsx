@@ -7,6 +7,7 @@ import {
   ButtonsContainer,
   Container,
   InfoContainer,
+  LogoContainer,
   StyledForm,
 } from './MobileHeaderContainer.styles';
 
@@ -14,38 +15,34 @@ interface MobileHeaderContainerProps {
   searchParam: string;
   setSearchParam: React.Dispatch<React.SetStateAction<string>>;
   handleSearch: (event: React.FormEvent<HTMLFormElement>) => void;
+  handleNavigateToHome: () => void;
+  handleNavigateToCart: () => void;
 }
 
 export function MobileHeaderContainer({
   searchParam,
   setSearchParam,
   handleSearch,
+  handleNavigateToCart,
+  handleNavigateToHome,
 }: MobileHeaderContainerProps) {
   return (
     <Container>
       <InfoContainer>
-        <h2>Cosmético&Co</h2>
+        <LogoContainer onClick={() => handleNavigateToHome()}>
+          <h1>Cosmético&Co</h1>
+        </LogoContainer>
+
         <ButtonsContainer>
           <IconButton
             icon={
               <FiShoppingCart
                 size={22}
-                onClick={() => {
-                  console.log('cart clicked');
-                }}
+                onClick={() => handleNavigateToCart()}
               />
             }
           />
-          <IconButton
-            icon={
-              <FaRegUserCircle
-                size={22}
-                onClick={() => {
-                  console.log('cart clicked');
-                }}
-              />
-            }
-          />
+          <IconButton icon={<FaRegUserCircle size={22} onClick={() => {}} />} />
         </ButtonsContainer>
       </InfoContainer>
       <StyledForm onSubmit={handleSearch}>

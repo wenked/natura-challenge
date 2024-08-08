@@ -8,14 +8,17 @@ import { useState } from 'react';
 import { CiSearch } from 'react-icons/ci';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { FiShoppingCart } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 import {
   ButtonsContainer,
   Container,
+  LogoContainer,
   StyledForm,
   StyledHeader,
 } from './Header.styles';
 
 export function Header() {
+  const navigate = useNavigate();
   const [searchParam, setSearchParam] = useState('');
 
   const { data: categories, isFetching } = useCategories();
@@ -28,15 +31,27 @@ export function Header() {
     filterProducts({ searchParam });
   }
 
+  function handleNavigateToHome() {
+    navigate('/');
+  }
+
+  function handleNavigateToCart() {
+    navigate('/cart');
+  }
+
   return (
     <StyledHeader>
       <MobileHeaderContainer
         searchParam={searchParam}
         setSearchParam={setSearchParam}
         handleSearch={handleSearch}
+        handleNavigateToHome={handleNavigateToHome}
+        handleNavigateToCart={handleNavigateToCart}
       />
       <Container>
-        <h2>Cosmético&Co</h2>
+        <LogoContainer onClick={() => handleNavigateToHome()}>
+          <h1>Cosmético&Co</h1>
+        </LogoContainer>
 
         {isFetching ? (
           <p>Carregando...</p>
@@ -67,22 +82,11 @@ export function Header() {
             icon={
               <FiShoppingCart
                 size={22}
-                onClick={() => {
-                  console.log('cart clicked');
-                }}
+                onClick={() => handleNavigateToCart()}
               />
             }
           />
-          <IconButton
-            icon={
-              <FaRegUserCircle
-                size={22}
-                onClick={() => {
-                  console.log('cart clicked');
-                }}
-              />
-            }
-          />
+          <IconButton icon={<FaRegUserCircle size={22} onClick={() => {}} />} />
         </ButtonsContainer>
       </Container>
     </StyledHeader>

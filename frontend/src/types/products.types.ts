@@ -4,6 +4,7 @@ export interface IProduct {
   description?: string;
   price?: string;
   oldPrice?: string;
+  formatedPrice?: string;
   categoryId?: string;
   images: IProductImage[];
   rating: number;
@@ -11,8 +12,8 @@ export interface IProduct {
 }
 
 export interface IGetProducts {
-  page: number;
-  limit: number;
+  page?: number;
+  limit?: number;
   searchParam?: string;
   categoryId?: string;
   attributes?: string[];
